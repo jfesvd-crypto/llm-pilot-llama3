@@ -2,7 +2,7 @@
 # Contrast Calculus
 
 <p align="center">
-  <img src="assets/upscaled_image6.jpg" alt="Contrast Calculus - Hero Image" />
+  <img src="upscaled_image6.jpg" alt="Contrast Calculus - Hero Image" />
 </p>
 
 ## About the Project
