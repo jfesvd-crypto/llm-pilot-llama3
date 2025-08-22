@@ -76,9 +76,10 @@ def test_snake_reductions():
     assert reduce_snakes([b, b.dual()]) == []
     assert reduce_snakes([c, c.dual()]) == []
 
-    # Test bardziej złożonego diagramu
-    assert reduce_snakes([a, c, c.dual(), b, a, a.dual()]) == [b]
-    
+    # Test bardziej złożonego diagramu - TUTAJ JEST POPRAWKA
+    # Prawidłowy wynik to [a, b], a nie [b]
+    assert reduce_snakes([a, c, c.dual(), b, a, a.dual()]) == [a, b]
+
     # Test diagramu bez możliwych redukcji
     assert reduce_snakes([a, b, c]) == [a, b, c]
 
