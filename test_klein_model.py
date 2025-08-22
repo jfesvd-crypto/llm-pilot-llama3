@@ -4,7 +4,7 @@ import pytest
 from hypothesis import given, strategies as st
 
 # Importujemy nasz model, który chcemy testować
-from src.contrast_calculus.klein_model import KleinElement, omega_cocycle, e, a, b, c
+from src.contrast_calculus.klein_model import KleinElement, omega_cocycle, reduce_snakes, e, a, b, c
 
 # --- Testy Poprawności Grupy (sanity checks) ---
 
@@ -58,3 +58,29 @@ def test_pentagon_coherence_with_hypothesis(g1, g2, g3, g4):
     """
     assert check_pentagon_identity(g1, g2, g3, g4)
 
+# --- Testy Dualności i Redukcji (Twierdzenie B) ---
+
+def test_dual_method():
+    """Sprawdza, czy metoda dual() działa poprawnie (dla Z₂×Z₂ g* = g)."""
+    assert a.dual() == a
+    assert b.dual() == b
+    assert c.dual() == c
+    assert e.dual() == e
+
+def test_snake_reductions():
+    """
+    Sprawdza, czy funkcja reduce_snakes poprawnie implementuje
+    tożsamości wężowe ("Prawo Zorro").
+    """
+    # Test prostej pętli (powinna zniknąć)
+    assert reduce_snakes([b, b.dual()]) == []
+    assert reduce_snakes([c, c.dual()]) == []
+
+    # Test bardziej złożonego diagramu
+    assert reduce_snakes([a, c, c.dual(), b, a, a.dual()]) == [b]
+    
+    # Test diagramu bez możliwych redukcji
+    assert reduce_snakes([a, b, c]) == [a, b, c]
+
+    # Test zagnieżdżonej redukcji
+    assert reduce_snakes([a, b, c, c.dual(), b.dual(), a.dual()]) == []
